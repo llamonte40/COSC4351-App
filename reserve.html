@@ -1,0 +1,52 @@
+<!DOCTYPE html>   
+<html>   
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title> Register Page </title>  
+<link rel="stylesheet" href="css/reserve.css">
+
+<section class = "top">
+<div class = "header" style = "background-color:rgb(229, 216, 193)">
+    <div class="imgcontainer">
+      <img src="App_images/Background10.jpg" alt="Avatar" class="avatar">
+    </div>
+      <div class="container">
+        <h1>Reserve</h1>
+      <p>Please fill out indicated fields.</p>
+      <hr>
+      
+      <form action = "http://127.0.0.1:5500/Availability.html">
+      <label for="name"><b>First/last name</b></label>
+      <input type="text" placeholder="Enter name" name="name" id="name" required>
+  
+      <label for="phone"><b>Enter your phone number:</b></label>
+      <input type="tel" >
+      
+      <label for="Email"><b>Email Address</b></label>
+      <input type="email" placeholder="Enter Email" name="email" id="email" required>
+      
+      <label for="start"><b>Date:</b></label>
+       <input type="date" id="start" name="trip-start"
+       value="2018-07-22"
+       min="2018-01-01" max="2030-12-31">
+
+       <label for="appt"><b>Available Times:</b></label>
+       <input type="time" id="appt" name="appt"
+       min="09:00" max="20:00" required>
+
+       <label for="Guests"><b>Num. of Guests</b></label>
+      <input type="Guests" placeholder="Num.of guests" name="Guests" id="Guests" required>
+      <hr>
+  
+      <a href="http://127.0.0.1:5500/Availability.html"> 
+      <button type="submit" class="registerbtn">Reserve</button>
+      </a>
+    </div>
+  </form>
+  
+    <div class="container signin">
+      <p>Not a registered user? <a href="http://127.0.0.1:5500/register.html#">Register now to earn points(optional)</a>.</p>
+    </div>
+  </div>
+</section>
+  
