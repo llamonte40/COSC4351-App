@@ -3,4 +3,4 @@
 
 
 ## run container
-docker run -d --name restaurant-fe-container -p 80:80 restaurant-fe
+`docker run -d --name restaurant-fe-container -p 80:80 restaurant-fe`
