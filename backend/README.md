@@ -1,5 +1,5 @@
 ## Python version 
-`python3.9.6`
+`python3.10`
 
 ## build container
 `docker build -t restaurant-api .`
