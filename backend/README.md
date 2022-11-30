@@ -6,4 +6,4 @@
 
 
 ## run container
-docker run -d --name restaurant-container -p 80:80 restaurant-api
+docker run -d --name restaurant-container -p 82:82 restaurant-api
