@@ -16,6 +16,15 @@ class LoginUser(BaseModel):
     email: str
     password: str
 
+class RegisterUser(BaseModel):
+    email: str
+    password: str
+    address_type: str
+    address: str
+    fav_dinner: str
+    point: int
+    fav_payment: str
+
 class ReservationRequest(BaseModel):
     email: str
     name: str
@@ -62,7 +71,7 @@ def login_user(request: LoginUser):
         "message": "success"
     }
 @app.post("/user/register")
-def register_user(request : LoginUser):
+def register_user(request : RegisterUser):
 
     query = {"email": request.email}
     query_result = users.count_documents(query)
@@ -75,7 +84,11 @@ def register_user(request : LoginUser):
     insert_result = users.insert_one({
         "email": request.email,
         "password": request.password,
-        "point": 0
+        "point": 0 if not request.point else request.point,
+        "address_type": request.address_type,
+        "address": request.address,
+        "fav_dinner": request.fav_dinner,
+        "fav_payment": request.fav_payment
     })
     # Return response
     return {
@@ -93,15 +106,13 @@ def get_all_users():
         "result": result
     }
 
-@app.delete("/user/delete")
+@app.put("/user/delete")
 def remove_user(request : LoginUser):
-    query_result=reservations.find({"email": request.email, "password": request.password, "_id": 0})
-    result = []
-    for n in query_result:
-        result.append(n)
+    users.delete_one({"email": request.email, "password": request.password})
     return {
-        "result": result
+        "message": "success"
     }
+
 
 @app.get("/reservation/by-name/{name}")
 def get_reservation_by_name(name:str):
@@ -183,11 +194,12 @@ def update_reservation(reservation: ReservationRequest):
         "message": "success"
     }
        
-@app.delete("/reservation/delete/{name}/{table_number}")
-def cancel_reservation(name: str, table_number : int):
+@app.delete("/reservation/delete/{email}")
+def cancel_reservation(email: str):
     query = {
-        "name":name , 
-        "table_number":table_number
+        "email": email
          }
-    reservations.delete_one(query)
-    return {}
+    reservations.delete_many(query)
+    return {
+        "message": "success"
+    }
