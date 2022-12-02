@@ -113,20 +113,8 @@ def remove_user(request : LoginUser):
         "message": "success"
     }
 
-
-@app.get("/reservation/by-name/{name}")
-def get_reservation_by_name(name:str):
-    query={"name": name }
-    query_result=reservations.find(query, {"_id": 0})
-    result = []
-    for n in query_result:
-        result.append(n)
-    return {
-        "result": result
-    }
-
-@app.get("/reservation/by-date-and-hour/{time}/{hour}")
-def get_reservation_by_name(time:date,hour:int):
+@app.get("/reservation/{time}/{hour}")
+def get_reservation_by_time_and_hour(time:date,hour:int):
     query={"time": datetime.combine(time, datetime.min.time()), "hour": hour }
     query_result=reservations.find(query, {"_id": 0})
     result = []
@@ -136,17 +124,14 @@ def get_reservation_by_name(time:date,hour:int):
         "result": result
     }
 
-@app.get("/reservation/by-table/{table}")
-def get_reservation_by_table(table: int):
-    query={"table_number":table}
-    query_result=reservations.find(query, {"_id": 0})
-    result = []
-    for n in query_result:
-        result.append(n)
-    return {
-        "result": result
-    }
-
+@app.get("/show-high-traffic-days")
+def get_high_traffic_days():
+    result = reservations.find({},{"_id": 0})
+    response = {}
+    for n in result:
+        dat = n.get("time").date()
+        response[str(dat)] = response.get(str(dat), 0) + 1
+    return response
 @app.post("/reservation")
 def reserve(reservation : ReservationRequest):
     resp = check_table_availability(reservation.time,reservation.hour, reservation.guest, reservation.tables)
