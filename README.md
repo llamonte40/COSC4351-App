@@ -12,7 +12,7 @@ url : http://143.198.79.58:80
 url: http://143.198.79.58:82/docs
 
  - Python (FastAPI)
- - PostgreSQL
+ - MongoDB
  - Docker
 
 ## Hosting Services used
